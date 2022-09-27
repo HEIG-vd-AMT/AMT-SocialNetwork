@@ -11,42 +11,61 @@ public class Twitter implements IObservable {
     public Twitter(){}
 
     public Twitter(List<IObserver> observers){
-        throw new UnsupportedOperationException();
+        _observers = observers;
     }
 
     public List<IObserver> getObservers(){
-        throw new UnsupportedOperationException();
+        return _observers;
     }
 
     public List<String> getTwits(){
-        throw new UnsupportedOperationException();
+        return _twits;
     }
 
     public String lastTwit(){
-        throw new UnsupportedOperationException();
+        return _twits.get(_twits.size() - 1);
     }
 
     public void post(String twit){
-        throw new UnsupportedOperationException();
+        _twits.add(twit);
     }
 
     @Override
     public void subscribe(List<IObserver> observer) {
-        throw new UnsupportedOperationException();
+        if(observer.isEmpty())
+            throw new EmptyListOfSubscribersException();
+
+        for (IObserver observerToAdd : observer) {
+            if(_observers.contains(observerToAdd)) {
+                throw new SubscriberAlreadyExistsException();
+            } else {
+                _observers.add(observerToAdd);
+            }
+        }
     }
 
     @Override
     public void unsubscribe(IObserver observer) {
-        throw new UnsupportedOperationException();
+        if(_observers.isEmpty())
+            throw new EmptyListOfSubscribersException();
+        if(_observers.contains(observer))
+            _observers.remove(observer);
+        else
+            throw new SubscriberNotFoundException();
     }
-
     @Override
     public void notifyObservers() {
-        throw new UnsupportedOperationException();
+        if(_observers.isEmpty())
+            throw new EmptyListOfSubscribersException();
+        _observers.notifyAll();
     }
 
-    public class TwitterException extends Exception { }
-    public class EmptyListOfSubscribersException extends TwitterException { }
+    public class TwitterException extends RuntimeException { }
+    public class EmptyListOfSubscribersException extends TwitterException {
+
+    }
     public class SubscriberAlreadyExistsException extends TwitterException { }
-    public class SubscriberNotFoundException extends TwitterException { }
+    public class SubscriberNotFoundException extends TwitterException {
+
+    }
 }
