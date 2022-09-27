@@ -66,7 +66,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //then
-        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> {
+        assertThrows(EmptyListOfSubscribersException.class, () -> {
             _twitter.notifyObservers();
         });
     }
@@ -115,7 +115,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //then
-        assertThrows(Twitter.SubscriberAlreadyExistsException.class, () -> {
+        assertThrows(SubscriberAlreadyExistsException.class, () -> {
             _twitter.subscribe(followersDuplicate);
         });
     }
@@ -131,7 +131,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //then
-        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> {
+        assertThrows(EmptyListOfSubscribersException.class, () -> {
             _twitter.unsubscribe(followerToRemove);
         });
     }
@@ -147,7 +147,7 @@ public class TestTwitter {
         //event is called directly by the assertion
 
         //then
-        assertThrows(Twitter.SubscriberNotFoundException.class, () -> {
+        assertThrows(SubscriberNotFoundException.class, () -> {
             _twitter.unsubscribe(followerNotFound);
         });
     }

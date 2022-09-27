@@ -1,52 +1,58 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Twitter implements IObservable {
+    private List<IObserver> _observers = new LinkedList<>();
+    private List<String> _twits = new LinkedList<>();
 
-    //region private attributes
-    private List<IObserver> _observers = new ArrayList<IObserver>();
-    private List<String> _twits = new ArrayList<String>();
-    //endregion private attributes
+    public Twitter() {}
 
-    public Twitter(){}
-
-    public Twitter(List<IObserver> observers){
-        throw new UnsupportedOperationException();
-    }
-
-    public List<IObserver> getObservers(){
-        throw new UnsupportedOperationException();
-    }
-
-    public List<String> getTwits(){
-        throw new UnsupportedOperationException();
-    }
-
-    public String lastTwit(){
-        throw new UnsupportedOperationException();
-    }
-
-    public void post(String twit){
-        throw new UnsupportedOperationException();
+    public Twitter(List<IObserver> observers) {
+        _observers = observers;
     }
 
     @Override
-    public void subscribe(List<IObserver> observer) {
-        throw new UnsupportedOperationException();
+    public void subscribe(List<IObserver> observers) {
+        for (IObserver observer : observers) {
+            if (_observers.contains(observer)) {
+                throw new SubscriberAlreadyExistsException();
+            }
+            _observers.add(observer);
+        }
     }
 
     @Override
     public void unsubscribe(IObserver observer) {
-        throw new UnsupportedOperationException();
+        if (_observers.isEmpty()) {
+            throw new EmptyListOfSubscribersException();
+        }
+        if (!_observers.remove(observer)) {
+            throw new SubscriberNotFoundException();
+        };
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers() throws EmptyListOfSubscribersException {
+        if (_observers.isEmpty()) {
+            throw new EmptyListOfSubscribersException();
+        }
+
+    }
+
+    public List<IObserver> getObservers() {
+        return _observers;
+    }
+
+    public List<String> getTwits() {
+        return _twits;
+    }
+
+    public void post(String twit) {
         throw new UnsupportedOperationException();
     }
 
-    public class TwitterException extends Exception { }
-    public class EmptyListOfSubscribersException extends TwitterException { }
-    public class SubscriberAlreadyExistsException extends TwitterException { }
-    public class SubscriberNotFoundException extends TwitterException { }
+    private boolean exists(IObserver followerToFind) {
+        throw new UnsupportedOperationException();
+    }
 }
+
