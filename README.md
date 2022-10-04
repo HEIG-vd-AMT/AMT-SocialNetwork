@@ -1,5 +1,13 @@
 # AMT-SocialNetwork
+### Groupe 8 : 
+* Nelson JEANRENAUD
+* Vincent PEER
+* Dimitri DE BLESER
 
+## Lancement des tests
+``
+mvn clean test
+``
 ## Feedback du 04.10.2022 donné par M. Nicolas Glassey
   * Attention à l'organisation des dossiers/fichiers
   * Pour l'UML, respecter l'architecture apprises jusqu'à présent et être propre
