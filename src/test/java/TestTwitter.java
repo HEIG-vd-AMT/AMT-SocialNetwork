@@ -102,7 +102,8 @@ public class TestTwitter {
     }
 
     @Test
-    public void subscribe_SubscriberAlreadyExists_ThrowsException(){
+    public void subscribe_SubscriberAlreadyExists_ThrowsException()
+    {
         //given
         //refer to Before Each method
         int expectedAmountOfSubscriber = 15;
@@ -118,6 +119,22 @@ public class TestTwitter {
         assertThrows(Twitter.SubscriberAlreadyExistsException.class, () -> {
             _twitter.subscribe(followersDuplicate);
         });
+    }
+
+    @Test
+    public void unsubscribe_NominalCase_Success()
+    {
+        //given
+        //refer to Before Each method
+        int expectedAmountOfSubscribers = 14;
+        List<IObserver> followers = generateObserver(expectedAmountOfSubscribers + 1);
+        _twitter.subscribe(followers);
+
+        //when
+        _twitter.unsubscribe(followers.get(0));
+
+        //then
+        assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
     }
 
     @Test
@@ -137,7 +154,8 @@ public class TestTwitter {
     }
 
     @Test
-    public void unsubscribe_SubscriberNotFound_ThrowsException(){
+    public void unsubscribe_SubscriberNotFound_ThrowsException()
+    {
         //given
         //refer to Before Each method
         IObserver followerNotFound = new Follower();
