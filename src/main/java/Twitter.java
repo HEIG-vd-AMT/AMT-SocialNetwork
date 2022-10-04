@@ -31,7 +31,7 @@ public class Twitter implements IObservable {
     }
 
     @Override
-    public void subscribe(List<IObserver> observer) {
+    public void subscribe(List<IObserver> observers) {
         throw new UnsupportedOperationException();
     }
 
@@ -45,7 +45,7 @@ public class Twitter implements IObservable {
         throw new UnsupportedOperationException();
     }
 
-    public class TwitterException extends Exception { }
+    public class TwitterException extends RuntimeException { }
     public class EmptyListOfSubscribersException extends TwitterException { }
     public class SubscriberAlreadyExistsException extends TwitterException { }
     public class SubscriberNotFoundException extends TwitterException { }

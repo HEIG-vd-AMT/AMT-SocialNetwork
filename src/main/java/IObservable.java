@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface IObservable {
     //Subscribe an Observer to an Observable
-    void subscribe(List<IObserver> observer);
+    void subscribe(List<IObserver> observers);
 
     //Unsubscribe an Observer from an Observable
     void unsubscribe(IObserver observer);
